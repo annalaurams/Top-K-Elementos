@@ -1,13 +1,15 @@
 #include <iostream>
 #include <fstream>
 #include <cstring>
-#include <sstream>
 #include <string>
-#include <map>
 #include <unordered_map>
 #include <vector>
 #include <queue>
-#include <regex>
+#include <cctype>
+#include <filesystem>
+#include <time.h>
 
-#include "heapK.hpp"
+#define FILES 2
+#define K 20
+
 #include "topk.hpp"

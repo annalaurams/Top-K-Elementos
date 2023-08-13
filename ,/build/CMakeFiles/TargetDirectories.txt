@@ -1,0 +1,3 @@
+/home/anna/Documentos/pronto/,/build/CMakeFiles/app.dir
+/home/anna/Documentos/pronto/,/build/CMakeFiles/edit_cache.dir
+/home/anna/Documentos/pronto/,/build/CMakeFiles/rebuild_cache.dir

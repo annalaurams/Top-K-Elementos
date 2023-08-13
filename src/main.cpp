@@ -1,42 +1,62 @@
-#include "files.hpp"
+#include "include.hpp"
 
 using namespace std;
 
-int main (){
-  int n, K = 0;
-  
-  ifstream file;
-  unordered_map<string, WordInfo> glossary;
-  priority_queue<int> heap;
-  
-  if (!file){
-    cout << "Error opening file.\n";
-  }
+int main() {
 
-  file.open("data/entrada.txt", ios::in);
+    clock_t startTime, endTime;
+    startTime = clock();
 
-  char c = '\0';
-  string str = "";
-  while(file){
-    c = file.get();
-    returnWord(c, n, str, glossary);
-  }
+    unordered_map<string, WordInfo> glossary; 
+    unordered_map<string, WordInfo> glossaryStopWords;
+    vector<WordInfo> heap;
+    vector<string> filenames;
 
-  printGlossary(glossary);
+    string s, filename;
 
-  
+    ifstream fileStopWords;
+    fileStopWords.open("data/stopwords.txt", ios::in);
 
-  file.close();
-  insertK(K, glossary, heap);
-  //finaleHash(K, glossary, heap);
+    while (fileStopWords){
+        getline(fileStopWords, s, '\n');
+        addStopWord(glossaryStopWords, s);
+    }
 
-  printHeap(heap);
+    fileStopWords.close();
 
-  int h = 0;
-  h = getLastElement(heap);
+    manyFiles(filenames);
+    
+    for (string filename : filenames) {
 
-  cout << "H: " << h << endl;
-  printInAscendingOrder(heap);
+        ifstream file;
+        file.open(filename, ios::in);
+        
+        if (file.is_open()){
 
-  return 0;
+            char c = '\0';
+            string str = "";
+
+            while (file.get(c))
+                fileReading(c, str, glossary); 
+    
+            file.close();
+        } 
+        else cout << "\nErro ao abrir o arquuivo.\n";
+    }
+
+    existentWord(glossary, glossaryStopWords);
+    insertK(glossary, heap);
+    finaleHash(glossary, heap);
+    printHeap(heap);
+
+    //cout << "\n-------- GLOSSARY --------------\n";
+    //printGlossary(glossary);
+
+    endTime = clock();
+    clock_t elapsedTime = endTime - startTime;
+    double elapsedTimeMs = ((double)elapsedTime/CLOCKS_PER_SEC)*1000;
+    cout << "\nTEMPO DE EXECUÇÃO: " << elapsedTimeMs << " ms " << endl;
+    cout << endl;
+
+    return 0;
 }
