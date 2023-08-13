@@ -44,14 +44,10 @@ As especificações a seguir foram propostas para discussão e resolução do pr
   2. Caso contrário, o elemento deve ser ignorado, e é comparado o próximo dado até o fim do glossário.
 - No final, a heap conterá os K elementos com maiores valores (ocorrências) dentre os textos lidos. Então, são imprimidos em ordem crescente.
 
-- Exemplificação de como funciona a inserção dos K elementos e as demais comparações:
 
-
-<div style="text-align:center">
-  <video width="400" height="400" controls>
-    <source src="img/exemplo.mp4" type="video/mp4">
-  </video>
-</div>
+<p align="center">
+  <img src="img/exemplo.gif" width="300" height="300">
+</p>
 
 -  Este programa deverá ler uma coleção de arquivos contento textos sem nenhuma for-
 matação ("arquivo ASCII") onde cada sentença termina por um sinal de pontuação (".",
