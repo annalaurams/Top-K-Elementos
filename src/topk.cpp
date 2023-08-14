@@ -198,37 +198,45 @@ void insertK( unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap){
       aux++;
   }
 
-  heapSort(heap);
+  printHeap(heap);
+  //heapSort(heap, lenght);
 }
 
 // organiza o heap em ordem crescente
 
-void heapify(vector<WordInfo> &heap, int lenght, int i){
+void heapify(vector<WordInfo> &heap, int &lenght, int i){
+
+  cout << "\nI: " << i << endl;
  
     int largest = i;
     int right = 2 * i + 2; // nó direito
     int left = 2 * i + 1; // nó esquedo
+
+    lenght = heap.size();
+
+
     
-    if (left < lenght && heap[left].occurrences > heap[largest].occurrences)
+    if (left < lenght && heap[left].occurrences < heap[largest].occurrences)
         largest = left;
 
-    if (right < lenght && heap[right].occurrences > heap[largest].occurrences)
+    if (right < lenght && heap[right].occurrences < heap[largest].occurrences)
         largest = right;
 
     if (largest != i){
         swap(heap[i], heap[largest]);
         heapify(heap, lenght, largest);
     }
+
 }
  
-void heapSort(vector<WordInfo> &heap){
- 
-    int length= heap.size();
+void heapSort(vector<WordInfo> &heap, int &lenght){
 
-    for (int i = length/ 2 - 1; i >= 0; i--)
-        heapify(heap, length, i);
+  lenght = heap.size();
 
-    for (int i = length- 1; i > 0; i--) {
+    for (int i = (lenght - 1); i >= 0; i--)
+        heapify(heap, lenght, i);
+
+    for (int i = lenght- 1; i > 0; i--) {
         swap(heap[0], heap[i]);
         heapify(heap, i, 0);
     }
@@ -236,11 +244,11 @@ void heapSort(vector<WordInfo> &heap){
 
 // compara o restante dos elementos da hash com o heap
 
-void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap){
+void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap, int &lenght, int i){
 
     int position = 0;
     int start = K;
-
+    
     auto it = glossary.begin(); 
 
     for (; it != glossary.end() && position < start + 1; ++it, ++position) {} // Começar a partir de K 
@@ -249,21 +257,24 @@ void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo>
 
         int current = it->second.occurrences; 
 
-        WordInfo info;
+         WordInfo info;
 
-        info.word = it->first;
-        info.occurrences = it->second.occurrences;
+         info.word = it->first;
+         info.occurrences = it->second.occurrences;
 
-        if (current > heap[0].occurrences){
+         //heapify(heap, lenght, i);
 
-            heap[0] = info;
-            heapSort(heap);
+         if (current > heap[0].occurrences){
 
-            //cout << "\nTroca -->  " << info.word << ": " <<info.occurrences << endl;
-                  
+
+
+          heap[0] = info;
+          heapify(heap, lenght, i);
+        
         }
-    }
-}
+    
+   // heapSort(heap, lenght);
+}}
 
 // imprimi o heap
 

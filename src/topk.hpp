@@ -24,7 +24,10 @@ void removeErro(unordered_map<string, WordInfo> &glossary);
 
 void insertK( unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap);
 void printHeap(vector<WordInfo> &heap);
-void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap);
-void heapSort(vector<WordInfo> &heap);
+//void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap, int length);
+
+void heapify(vector<WordInfo> &heap, int &lenght, int i);
+void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap, int &length, int i);
+void heapSort(vector<WordInfo> &heap, int &length);
 
 #endif

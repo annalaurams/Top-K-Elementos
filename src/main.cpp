@@ -45,13 +45,15 @@ int main() {
     }
 
     existentWord(glossary, glossaryStopWords);
+
+    int lenght = 0;
+    lenght = heap.size();
+
     insertK(glossary, heap);
-    finaleHash(glossary, heap);
+    heapify(heap, lenght, 0);
+    finaleHash(glossary, heap, lenght, 0);
     printHeap(heap);
-
-    //cout << "\n-------- GLOSSARY --------------\n";
-    //printGlossary(glossary);
-
+    
     endTime = clock();
     clock_t elapsedTime = endTime - startTime;
     double elapsedTimeMs = ((double)elapsedTime/CLOCKS_PER_SEC)*1000;
