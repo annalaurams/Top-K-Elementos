@@ -7,14 +7,13 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 - [Objetivos](#Objetivos)
 - [Estrutura](#Estrutura)
 - [Diretrizes](#Diretrizes)
-- [Decisões_de_Implementação](#Decisões_de_Implementação)
+- [Decisões de Implementação](#Decisões_de_Implementação)
 - [Funções](#Funções)
 - [Resultados](#Resultados)
 - [Tempo de execução e Custo computacional](#Tempo_de_execução_e_Custo_computacional)
 - [Conclusão](#Conclusão)
-- [Referências](#Referências)
 - [Compilação e execução](#Compilação-e-execução)
-
+- [Referências](#Referências)
 
 ## Objetivo
 
@@ -31,30 +30,28 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 - ```text2.txt:``` Texto de entrada. 
 - ```stopwords.txt:``` Artigos e conjunções como (a, o, as, os, e, ou).
 
-## Diretrizes
+## Diretrizes ☑️ 
 
 As especificações a seguir foram propostas para discussão e resolução do problema:
 
 - A partir de um texto de entrada, o algoritmo realiza a leitura dele e cria uma tabela de dispersão (hash) intitulada ```glossary```, para contar quantas vezes cada palavra aparece no texto. A chave do hash é a própria palavra.
-- O arquivo de stopWords, que podem ser alteradas de acordo com a preferência do usuário. O conteúdo deste arquivo é salvo em outra tabela de dispersão e as palavras dele são identificadas no texto, e em seguida excluídas. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
-- Em seguida, a partir de um valor K, é inserido em um vetor ```heap``` as primeiras K palavras guardadas no hash e depois são ordenados de forma crescente em relação as ocorrências destas.
-- Após isso para cada elemento restante na hash, é realizado comparações com o menor valor contifo no heap, que neste caso está na primeira posição do vetor.
+- O conteúdo do arquivo de stopWords, que podem ser alteradas de acordo com a preferência do usuário, é salvo em outra tabela de dispersão. As stopWords que forem econtradas no texto, são em seguida excluídas. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
+- Em seguida, a partir de um valor K, é inserido em um vetor ```heap``` as primeiras K palavras guardadas no hash e depois são ordenados de forma que a menor ocorrência das K palavras inseridas esteja na primeira posição do vetor.
+- Após isso para cada elemento restante na hash, é realizado comparações com o menor valor contido no heap:
 
-  1. Se a ocorrência for maior do que o menor valor da heap, o menor vaor é removido, o novo elemento é inserido e a estrutura novamente ordenada.
+  1. Se a ocorrência for maior do que o menor valor da heap, o menor vaor é removido, o novo elemento é inserido e a estrutura novamente organizada
   2. Caso contrário, o elemento deve ser ignorado, e é comparado o próximo dado até o fim do glossário.
-- No final, a heap conterá os K elementos com maiores valores (ocorrências) dentre os textos lidos. Então, são imprimidos em ordem crescente.
+- No final, a heap conterá os K elementos com maiores valores (ocorrências) dentre os textos lidos. 
 
+<div style="display: flex; justify-content: center;">
+    <img src="img/exemploHeap.gif" width="300" height="300">
+</div>
 
-<p align="center">
-  <img src="img/exemplo.gif" width="300" height="300">
-</p>
-
--  Este programa deverá ler uma coleção de arquivos contento textos sem nenhuma for-
-matação ("arquivo ASCII") onde cada sentença termina por um sinal de pontuação (".",
-"?", "!"").
+-  Este programa deverá ler uma coleção de arquivos contento textos sem nenhuma formatação ("arquivo ASCII") onde cada sentença termina por um sinal de pontuação (".", "?", "!"").
 - Cada parágrafo é separado por, pelo menos, uma linha em branco.
-- Considere como palavra uma sequência de letras delimitada por espaço em branco, ”col-
-una da esquerda”, ”coluna da direita” e símbolos de pontuação.
+- Considere como palavra uma sequência de letras delimitada por espaço em branco, ”coluna da esquerda”, ”coluna da direita” e símbolos de pontuação.
+
+- Os arquivos de entrada são lidos caracter por caracter.
 
 - O programa permite a leitura de vários arquivos de texto ao mesmo tempo, no entanto existem algumas regras:
   1. Para cada novo arquivo que se deseja ler, deve ser colocado dentro da pasta ```data```. 
@@ -63,25 +60,31 @@ una da esquerda”, ”coluna da direita” e símbolos de pontuação.
 
 - Dentro do arquivo ```include.hpp```possui a variável K que corresponde ao tamanho do heap, também pode ser alterada.
 
-## Decisões de implementação
+## Decisões de implementação 📝
 
-Estruturas escolhidas: Unordered_map, vector e heapSort 
+```unordered_map:``` Implementado usando a tabela de hash, o qual tem uma função de hash para calcular o índice de armazenamento de cada elemento, permitindo um acesso direto aos dados, sem a necessidade de percorrer todos. É possível localizar, inserir e remover elementos com uma chave especificada, que neste caso é a palavra. Essa estrutura também armazena um valor, que neste caso se refere a struct ```WordInfo```que armazena as ocorrências. Além disso, o unordered_map não mantém os elementos ordenados.
 
-```unordered_map:``` Implementado usando a tabela de hash, o qual tem uma função de hash para calcular o índice de armazenamento de cada elemento, permitindo um acesso direto aos dados, sem a necessidade de percorrer todos os eles, ela armazena chave e valor, que nesse caso representa a palavra e sua ocorrência. O unordered_map não mantém os elementos ordenados.
   - Alguns benefícios de usar essas estruturas são: rapidez em acessas elementos e a capacidade de armazenar enormes entradas de dados.
 
-```Heapsort:``` Utiliza uma estrutura de dados chamada "heap" para organizar os elementos, é como uma árvore binária mantida na forma de um vetor. Neste caso o heap construído guarda o menor elemento no início. Dentro do heapSort é usado o método ```heapfy```  que realiza o seguinte procedimento:
+```Heap:``` O algoritmo implementa heapify para uma min-heap. Uma min-heap é uma estrutura de dados em que cada nó tem um valor menor ou igual ao valor de seus filhos. O algoritmo de heapify é usado para manter uma min-heap em ordem.
 
-  - Começa no último pai da árvore, que é o elemento no meio do array.
-Verifica se o pai é maior ou igual aos seus dois filhos. Se não for, troca o pai com o filho maior.
-Continua movendo para cima na árvore, verificando e trocando os pais com seus filhos maiores, até que chegue ao topo da árvore.
-No final do algoritmo, o array estará convertido em um heap.
-  - Em linhas gerais, o método heapify é usado no algoritmo de ordenação heapsort. O heapsort funciona criando um heap a partir do array original e, em seguida, removendo os elementos do heap em ordem crescente.
-
-  - Alguns benefícios de usar essas estruturas são: Eficientes para grandes entradas de dados.
+<div style="text-align:center">
+    <img src="img/minHeap.png" height="300" width="350">
+</div>
 
 
- ## Funções
+O algoritmo de heapify é um algoritmo que garante que a árvore permaneça um heap, mesmo quando os elementos são inseridos ou removidos. O algoritmo funciona da seguinte forma:
+
+  1. Comece no nó da raiz da árvore e verifique se o nó tem filhos.
+  2. Se o nó tiver filhos, verifique se o valor do nó é maior ou igual ao valor dos seus filhos.
+  3. Se o valor do nó não for maior ou igual ao valor dos seus filhos, troque o valor do nó com o valor do maior filho.
+  4. Repita os passos 2 a 4 para o filho do nó que foi trocado.
+O algoritmo de heapify garante que as maiores ocorrências sejam organizadas como um heap.
+
+  - Alguns benefícios de usar essas estruturas são: Eficiência para pesquisa, inserção e remoção.
+
+
+ ## Funções 
 
 - ```addStopWord``` : Adiciona as stop words no glossário destinado para elas.
 - ```existentWord```: Verifica as stop words presentes no glossário e remove elas dele.
@@ -97,30 +100,34 @@ No final do algoritmo, o array estará convertido em um heap.
 - ```heapify``` : Responsável por garantir que o valor no nó seja maior ou igual aos valores de seus filhos. 
 - ```heapSort``` : Ordena o heap de maneira crescente.
 
- ## Tempo de execução e Custo Computacional
+ ## Tempo de execução e Custo Computacional 🕜
 
 A contagem foi feita pelas ferramentas disponibilizadas pela bibioteca "time.h". <br/>
-A média geral do tempo de execução deste código é: 
+A média geral do tempo de execução deste código é: 491,123 ms
 
-Unordered_map:
+Unordered_map: Melhor caso: O(1)
+               Pior caso O(n)
 
-Heapsort: O(nlogk), onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
+Heap: O(nlogk), onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
 
-## Resultados
+## Resultados ✅
 
-Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados, em ordem crescente.
+Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados.
+A ordem das ocorrências seguem a estrutura de um heap.
+
+<div style="text-align:center">
+    <img src="img/output.png" height="400" width="400">
+</div>
 
 
-### **Conclusão**
+## Conclusão 📋
 
-Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como o tabela hash e o método heap, para grande entradas de dados.
+Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como o tabela hash e o método heap.
 Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos elementos e heap para manter a lista dos K elementos com maiores valores.
 Ao combinar as capacidades de contagem rápida de hash e a capacidade de manutenção de ordem e seleção eficiente de heap, o algoritmo consegue atingir um desempenho notável em termos de complexidade temporal para uma grande entrada de dados.
 
-<img src="imagens/terminal.png" height="550" width="350">
 
-
-### Compilação e Execução
+## Compilação e Execução 💻 
 
 Esse pequeno exemplo possui um arquivo Makefile que realiza todo o procedimento de compilação e execução. <br/>Para tanto, temos as seguintes diretrizes de execução:
 
@@ -131,7 +138,11 @@ Esse pequeno exemplo possui um arquivo Makefile que realiza todo o procedimento 
 |  `make`                | Executa a compilação do programa utilizando o gcc, e o resultado vai para a pasta build           |
 |  `make run`            | Executa o programa da pasta build após a realização da compilação                                 |
 
+## Referências 📞
 
+https://learn.microsoft.com/pt-br/cpp/standard-library/unordered-map-class?view=msvc-170
+https://www.geeksforgeeks.org/map-vs-unordered_map-c/
+https://www.geeksforgeeks.org/heap-data-structure/
 
 ### Contato
 

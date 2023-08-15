@@ -197,16 +197,11 @@ void insertK( unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap){
 
       aux++;
   }
-
-  printHeap(heap);
-  //heapSort(heap, lenght);
 }
 
-// organiza o heap em ordem crescente
+// organiza o heap
 
 void heapify(vector<WordInfo> &heap, int &lenght, int i){
-
-  cout << "\nI: " << i << endl;
  
     int largest = i;
     int right = 2 * i + 2; // nó direito
@@ -214,8 +209,6 @@ void heapify(vector<WordInfo> &heap, int &lenght, int i){
 
     lenght = heap.size();
 
-
-    
     if (left < lenght && heap[left].occurrences < heap[largest].occurrences)
         largest = left;
 
@@ -227,19 +220,6 @@ void heapify(vector<WordInfo> &heap, int &lenght, int i){
         heapify(heap, lenght, largest);
     }
 
-}
- 
-void heapSort(vector<WordInfo> &heap, int &lenght){
-
-  lenght = heap.size();
-
-    for (int i = (lenght - 1); i >= 0; i--)
-        heapify(heap, lenght, i);
-
-    for (int i = lenght- 1; i > 0; i--) {
-        swap(heap[0], heap[i]);
-        heapify(heap, i, 0);
-    }
 }
 
 // compara o restante dos elementos da hash com o heap
@@ -262,19 +242,12 @@ void finaleHash(const unordered_map<string, WordInfo> glossary, vector<WordInfo>
          info.word = it->first;
          info.occurrences = it->second.occurrences;
 
-         //heapify(heap, lenght, i);
-
          if (current > heap[0].occurrences){
-
-
-
           heap[0] = info;
           heapify(heap, lenght, i);
-        
         }
-    
-   // heapSort(heap, lenght);
-}}
+    } 
+}
 
 // imprimi o heap
 
