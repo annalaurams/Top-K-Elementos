@@ -23,7 +23,7 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 ## Estrutura 🗂️
 
 - ```topk.hpp:``` Engloba a struct WordInfo, todas as funções utilizadas e seus parâmetros.
-- ```topk.cpp:``` Contém a criação e o desenvolvimento de todas as funções do código.    
+- ```topk.cpp:``` Contém o desenvolvimento de todas as funções do código.    
 - ```main.cpp:``` Pertence a parte de leitura dos arquivos, chamada das funções usadas e o tempo de execução do programa.
 - ```include.hpp:``` Inclui biliotecas e arquivos a serem utilizados.
 - ```text1.txt:``` Texto de entrada. 
@@ -35,7 +35,8 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 As especificações a seguir foram propostas para discussão do problema:
 
 - A partir de um texto de entrada, o algoritmo realiza a leitura dele e cria uma tabela de dispersão (hash) intitulada ```glossary```, para contar quantas vezes cada palavra aparece no texto. A chave do hash é a própria palavra.
-- O conteúdo do arquivo de stopWords, que podem ser alteradas de acordo com a preferência do usuário, é salvo em outra tabela de dispersão. As stopWords que forem econtradas no texto, são em seguida excluídas dele. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
+- O conteúdo do arquivo de stop words, pode ser alterado de acordo com a preferência do usuário, desde que cada palavra esteja em uma linha do arquivo e o nome dele não seja modificado. As stop words são salvas em outra tabela de dispersão. As stop words que forem econtradas no texto, são em seguida excluídas dele. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
+- O nome do arquivo 
 - Em seguida, a partir de um valor K, é inserido em um vetor intitulado ```heap``` as primeiras K palavras guardadas no hash e depois são organizadas de forma que a menor ocorrência das K palavras inseridas, esteja na primeira posição do vetor.
 - Após isso para cada elemento restante na hash, é realizado comparações com o menor valor contido no heap, que neste caso são as ocorrências:
 
@@ -63,21 +64,16 @@ As especificações a seguir foram propostas para discussão do problema:
 ## Decisões de implementação 📝
 
 ### ```unordered_map:```  
-Emprega uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar que o unordered_map, não mantém os elementos ordenados. 
+Estrutura que implementa uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar que o unordered_map, não mantém os elementos ordenados. 
 
 Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear. Enquanto outras implementaçõe podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
 
 Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2".  O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
 o algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
 
-No entanto, cada compilador de C++ deve implementar a biblioteca padrão por qualquer meio que escolher.
-
-- Melhor caso: $O(1)$
-- Pior caso:  $O(n)$
-
 
 ### ```Heap:```  
-Uma heap é uma árvore binária onde o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
+Uma heap é uma estrutura a qual o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
 
 <div style="text-align:center">
     <img src="img/minHeap.png" height="300" width="350">
@@ -93,14 +89,7 @@ Quando se encontra um nó filho com valor menor que o atual, a troca entre os el
 As trocas são feitas usando a função ```swap```, que aceita dois parâmetros que serão trocados. Os parâmetros podem ser de qualquer tipo de dados.
 A função não retorna nada, apenas troca os valores, que nesse caso se refere a troca de uma ocorrência menor pela outra maior.
 
-Custo: $O$  $n(log$ $n)$, onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
-
-De modo geral, o custo computacional é:
-
-- Para percorrer todos os elementos do hash  $O(n)$ <br> 
-- Para percorrer todos os elementos do heap  $O$  $k(log   k)$
-
-
+Custo: $O$  $k(log$ $k)$, onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
 
  ## Funções  💻
 
@@ -120,7 +109,7 @@ De modo geral, o custo computacional é:
  ## Tempo de execução 🕜
 
 A contagem foi feita pelas ferramentas disponibilizadas pela bibioteca "time.h". <br/>
-A média geral do tempo de execução deste código é: 491,123 ms
+O algoritmo foi executado 10 vezes e obteve-se como média geral o tempo de: 491,123 ms
 
 ## Resultados ✅
 
