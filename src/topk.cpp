@@ -203,28 +203,22 @@ void insertK( unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap){
 
 void heapify(vector<WordInfo> &heap, int &lenght, int i){
  
-    int largest = i;
-    int right = 2 * i + 2; // nó direito
-    int left = 2 * i + 1; // nó esquedo
+  int largest = i;
+  int left = 2 * i + 1; // nó esquedo
+  int right = 2 * i + 2; // nó direito
+  
+  lenght = heap.size();
 
-    // i = 0;
+  if (left < lenght && heap[left].occurrences < heap[largest].occurrences)
+      largest = left;
 
-    // int largest = i;
-    // int right = (i + 1) * 2; // nó direito
-    // int left = (i + 1) * 2 +1; // nó esquedo
+  if (right < lenght && heap[right].occurrences < heap[largest].occurrences)
+      largest = right;
 
-    lenght = heap.size();
-
-    if (left < lenght && heap[left].occurrences < heap[largest].occurrences)
-        largest = left;
-
-    if (right < lenght && heap[right].occurrences < heap[largest].occurrences)
-        largest = right;
-
-    if (largest != i){
-        swap(heap[i], heap[largest]);
-        heapify(heap, lenght, largest);
-    }
+  if (largest != i){
+      swap(heap[i], heap[largest]);
+      heapify(heap, lenght, largest);
+  }
 }
 
 // compara o restante dos elementos da hash com o heap

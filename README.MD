@@ -62,21 +62,22 @@ As especificações a seguir foram propostas para discussão do problema:
 
 ## Decisões de implementação 📝
 
-```unordered_map:``` Emprega uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante observar que o unordered_map, os elementos ordenados. 
+### ```unordered_map:```  
+Emprega uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar que o unordered_map, não mantém os elementos ordenados. 
 
 Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear. Enquanto outras implementaçõe podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
 
 Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2".  O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
 o algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
 
-No entanto, cada compilador de C++ deve implementar a biblioteca padrão por qualquer meio que optar. Geralmente é chamada a biblioteca padrão inspiradas no STL.
-No entanto, é essencial compreender que diferentes compiladores de C++ podem optar por implementar a biblioteca padrão de maneiras diversas, ainda que sejam geralmente influenciados pela abordagem do STL. 
+No entanto, cada compilador de C++ deve implementar a biblioteca padrão por qualquer meio que escolher.
 
-- Melhor caso: $O\;(1)$
-- Pior caso:  $O\;(n)$
+- Melhor caso: $O(1)$
+- Pior caso:  $O(n)$
 
 
-```Heap:``` Uma heap é uma árvore binária onde o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. O valor a ser armazenado nessa estrutura são as maiores ocorrências de palavras no texto.
+### ```Heap:```  
+Uma heap é uma árvore binária onde o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
 
 <div style="text-align:center">
     <img src="img/minHeap.png" height="300" width="350">
@@ -84,21 +85,20 @@ No entanto, é essencial compreender que diferentes compiladores de C++ podem op
 
 O heap é organizado da seguinte forma:
 
-- Verifica se o nó à esquerda existe e se o valor de ocorrências desse nó é menor que o valor de ocorrências do nó atual. Se essa condição for verdadeira, atualiza largest para apontar para o nó à esquerda.
+- Verifica se o nó à esquerda existe e se o valor de ocorrências desse nó é menor que o valor de ocorrências do nó atual. Se essa condição for verdadeira, atualiza maior para apontar para o nó à esquerda.
 - A função faz a mesma verificação para o nó da direita. 
 
-Quando se encontra um nó filho com valor menor que o atual, a troca entre os elementos ocorre e função é chamada novamente de modo recursivo.
-A condição de parada ocorre quando o atual é maior do que seus nós filhos.
+Quando se encontra um nó filho com valor menor que o atual, a troca entre os elementos ocorre e a função é chamada novamente de modo recursivo.
 
 As trocas são feitas usando a função ```swap```, que aceita dois parâmetros que serão trocados. Os parâmetros podem ser de qualquer tipo de dados.
 A função não retorna nada, apenas troca os valores, que nesse caso se refere a troca de uma ocorrência menor pela outra maior.
 
-Custo: $O\;n\;(log \;  n)$, onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
+Custo: $O$  $n(log$ $n)$, onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
 
 De modo geral, o custo computacional é:
 
 - Para percorrer todos os elementos do hash  $O(n)$ <br> 
-- Para percorrer todos os elementos do heap  $O\;k\;(log   k)$
+- Para percorrer todos os elementos do heap  $O$  $k(log   k)$
 
 
 
@@ -111,29 +111,16 @@ De modo geral, o custo computacional é:
 - ```fileReading``` : Realiza leitura caracter por caracter dos textos de entrada, utilizando um switch case, essa função processa, identifica as palavras e adiciona cada uma no glossário.
 - ```cases``` : Realiza a contagem de ocorrência de cada palavra a medida que o texto é lido.
 - ```Accentuation``` : Procedimento que trata palavras acentuadas para aparecerem corretamente.
-- ```removeErro``` : Exclui possíveis strings vazias do glossário.
 - ```insertK``` : Insere os primeiros K elementos do hash no heap.
 - ```printHeap``` : Imprimi o heap de forma crescente.
 - ```finaleHash``` : Realiza inserção do restante dos itens do hash, a partir da posição K, insere ou troca as maiores ocorrências do hash com o menor do heap.
-- ```heapify``` : Responsável por garantir que o valor no nó seja maior ou igual aos valores de seus filhos. 
-- ```heapSort``` : Ordena o heap de maneira crescente.
+- ```heapify``` : Organiza a estrutra heap.
 
- ## Tempo de execução e Custo Computacional 🕜
+
+ ## Tempo de execução 🕜
 
 A contagem foi feita pelas ferramentas disponibilizadas pela bibioteca "time.h". <br/>
 A média geral do tempo de execução deste código é: 491,123 ms
-
-Unordered_map: Melhor caso: O(1)
-               Pior caso O(n)
-               O(1) para a busca, remoção e inserção de elementos no
-melhor caso, e O(n) no pior caso.
-
-Heap:
-
-O(n) → para percorrer as palavras do texto
-O(k * log k) → para inserir os k primeiro itens
-O( (n-k) * log k) → para tentar inserir o restante dos elementos na heap
-O(k) → para exibir os K itens
 
 ## Resultados ✅
 
@@ -145,7 +132,7 @@ A ordem das ocorrências seguem a estrutura de um heap.
 
 ## Conclusão 📋
 
-Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como o tabela hash e o método heap.
+Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como a tabela hash e o método heap.
 Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos elementos e heap para manter a lista dos K elementos com maiores valores.
 Ao combinar as capacidades de contagem rápida de hash e a capacidade de manutenção de ordem e seleção eficiente de heap, o algoritmo consegue atingir um desempenho notável em termos de complexidade temporal para uma grande entrada de dados, já que para a busca dos K maiores itens não é necessário percorrer todo o heap procurando o menor valor, uma vez que ele estará sempre na primeira posição.
 
@@ -164,13 +151,12 @@ Esse pequeno exemplo possui um arquivo Makefile que realiza todo o procedimento 
 ## Referências 
 
 https://learn.microsoft.com/pt-br/cpp/standard-library/unordered-map-class?view=msvc-170
-https://stackoverflow.com/questions/21518704/
-https://stackoverflow.com/questions/19411742/
-https://www.geeksforgeeks.org/heap-data-structure/
+https://stackoverflow.com/questions/21518704/ <br>
+https://stackoverflow.com/questions/19411742/ <br>
+https://www.geeksforgeeks.org/heap-data-structure/ <br>
 https://www.geeksforgeeks.org/swap-in-cpp/
 
 ### Contato
-
 <div>
  <br><p align="justify"> Anna Laura Moura Santana</p>
  <a href="https://t.me/annalaurams">
