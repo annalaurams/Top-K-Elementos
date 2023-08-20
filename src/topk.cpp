@@ -207,6 +207,12 @@ void heapify(vector<WordInfo> &heap, int &lenght, int i){
     int right = 2 * i + 2; // nó direito
     int left = 2 * i + 1; // nó esquedo
 
+    // i = 0;
+
+    // int largest = i;
+    // int right = (i + 1) * 2; // nó direito
+    // int left = (i + 1) * 2 +1; // nó esquedo
+
     lenght = heap.size();
 
     if (left < lenght && heap[left].occurrences < heap[largest].occurrences)
@@ -219,7 +225,6 @@ void heapify(vector<WordInfo> &heap, int &lenght, int i){
         swap(heap[i], heap[largest]);
         heapify(heap, lenght, largest);
     }
-
 }
 
 // compara o restante dos elementos da hash com o heap

@@ -46,12 +46,12 @@ int main() {
 
     existentWord(glossary, glossaryStopWords);
 
-    int lenght = 0;
+    int lenght = 0, i = 0;
     lenght = heap.size();
 
     insertK(glossary, heap);
     heapify(heap, lenght, 0);
-    finaleHash(glossary, heap, lenght, 0);
+    finaleHash(glossary, heap, lenght, i);
     printHeap(heap);
     
     endTime = clock();
