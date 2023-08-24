@@ -15,12 +15,12 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 - [Compilação e Execução](#compilação-e-execução)
 - [Referências](#referências)
 
-## 🎯Objetivo  
+## 🎯Objetivo 
 
 O objetivo é desenvolver um algoritmo utilizando-se tabela hash e o método heap para resolver um problema clássico chamado "Top K Itens". 
 Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma coleção de dados. Logo, utiliza-se o hash para contar a frequência de todos os itens, enquanto o heap se aplica na manutenção de uma lista dos K itens de maior valor. 
 
-## 🗂️Estrutura  
+## 🗂️Estrutura 
 
 - ```topk.hpp:``` Apresenta a struct WordInfo.
 - ```topk.cpp:``` Contém o desenvolvimento de todas as funções do código.    
@@ -30,7 +30,7 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 - ```text2.txt:``` Texto de entrada. 
 - ```stopwords.txt:``` Artigos e conjunções como (a, o, as, os, e, ou).
 
-## ✔️Diretrizes  
+## ✔️Diretrizes 
 
 As especificações a seguir foram propostas para discussão do problema:
 
