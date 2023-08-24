@@ -12,7 +12,7 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 - [Resultados](#resultados)
 - [Tempo De Execução](#tempo_de_execução)
 - [Conclusão](#conclusão)
-- [Compilação e execução](#compilação-e-execução)
+- [Compilação e execução](#compilação e execução)
 - [Referências](#referências)
 
 ## 🎯 Objetivo  
