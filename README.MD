@@ -33,7 +33,7 @@ As especificações a seguir foram propostas para discussão do problema:
   2. Caso contrário, o elemento deve ser ignorado, e é comparado o próximo dado até o fim do glossário.
 - No final, a heap conterá os K elementos com maiores valores (ocorrências) dentre os textos lidos. 
 
-***Exemplo de inserção e comparção:***
+***Exemplo de inserção e comparação:***
 
 <div style="display: flex; justify-content: center;">
     <img src="img/exemploHeap.gif" width="300" height="300">
