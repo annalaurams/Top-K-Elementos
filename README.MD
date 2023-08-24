@@ -2,19 +2,6 @@
 
 Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 
-## 📕Sumário 
-
-- [Objetivo](#objetivo)
-- [Estrutura](#estrutura)
-- [Diretrizes](#diretrizes)
-- [Decisões de Implementação](#decisões-de-implementação)
-- [Funções](#funções)
-- [Resultados](#resultados)
-- [Tempo De Execução](#tempo-de-execução)
-- [Conclusão](#conclusão)
-- [Compilação e Execução](#compilação-e-execução)
-- [Referências](#referências)
-
 ## 🎯Objetivo 
 
 O objetivo é desenvolver um algoritmo utilizando-se tabela hash e o método heap para resolver um problema clássico chamado "Top K Itens". 
