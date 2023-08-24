@@ -4,10 +4,11 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 
 ## 📕 Sumário 
 
+
 - [Objetivo](#objetivo)
 - [Estrutura](#estrutura)
 - [Diretrizes](#diretrizes)
-- [Decisões de Implementação](#decisões_de_implementação)
+- [Decisões de Implementação](#decisões-de-implementação)
 - [Funções](#funções)
 - [Resultados](#resultados)
 - [Tempo De Execução](#tempo-de-execução)
