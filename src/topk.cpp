@@ -203,21 +203,22 @@ void insertK( unordered_map<string, WordInfo> glossary, vector<WordInfo> &heap){
 
 void heapify(vector<WordInfo> &heap, int &lenght, int i){
  
-  int largest = i;
   int left = 2 * i + 1; // nó esquedo
   int right = 2 * i + 2; // nó direito
+
+  int aux = i;
   
   lenght = heap.size();
 
-  if (left < lenght && heap[left].occurrences < heap[largest].occurrences)
-      largest = left;
+  if (left < lenght && heap[left].occurrences < heap[aux].occurrences)
+      aux = left;
 
-  if (right < lenght && heap[right].occurrences < heap[largest].occurrences)
-      largest = right;
+  if (right < lenght && heap[right].occurrences < heap[aux].occurrences)
+      aux = right;
 
-  if (largest != i){
-      swap(heap[i], heap[largest]);
-      heapify(heap, lenght, largest);
+  if (aux != i){
+      swap(heap[i], heap[aux]);
+      heapify(heap, lenght, aux);
   }
 }
 

@@ -24,7 +24,7 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 
 ## 🗂️Estrutura 
 
-- ```topk.hpp:``` Engloba a struct WordInfo, todas as funções utilizadas e seus parâmetros.
+- ```topk.hpp:``` Engloba a struct WordInfo.
 - ```topk.cpp:``` Contém o desenvolvimento de todas as funções do código.    
 - ```main.cpp:``` Pertence a parte de leitura dos arquivos, chamada das funções usadas e o tempo de execução do programa.
 - ```include.hpp:``` Inclui biliotecas e arquivos a serem utilizados.
@@ -32,15 +32,15 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 - ```text2.txt:``` Texto de entrada. 
 - ```stopwords.txt:``` Artigos e conjunções como (a, o, as, os, e, ou).
 
-## ☑️Diretrizes 
+## ✔️Diretrizes 
 
 As especificações a seguir foram propostas para discussão do problema:
 
 - A partir de um texto de entrada, o algoritmo realiza a leitura dele e cria uma tabela de dispersão (hash) intitulada ```glossary```, para contar quantas vezes cada palavra aparece no texto. A chave do hash é a própria palavra.
 - O conteúdo do arquivo de stop words, pode ser alterado de acordo com a preferência do usuário, desde que cada palavra esteja em uma linha do arquivo e o nome dele não seja modificado. As stop words são salvas em outra tabela de dispersão. As stop words que forem econtradas no texto, são em seguida excluídas dele. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
-- O nome do arquivo 
+- O nome do arquivo ```stopwords.txt``` não deve ser alterado.
 - Em seguida, a partir de um valor K, é inserido em um vetor intitulado ```heap``` as primeiras K palavras guardadas no hash e depois são organizadas de forma que a menor ocorrência das K palavras inseridas, esteja na primeira posição do vetor.
-- Após isso para cada elemento restante na hash, é realizado comparações com o menor valor contido no heap, que neste caso são as ocorrências:
+- Após isso para cada elemento restante no hash, é realizado comparações com o menor valor contido no heap, esses valores são as ocorrências:
 
   1. Se a ocorrência for maior do que o menor valor da heap, o menor valor é removido, o novo elemento é inserido e a estrutura novamente organizada.
   2. Caso contrário, o elemento deve ser ignorado, e é comparado o próximo dado até o fim do glossário.
@@ -65,17 +65,20 @@ As especificações a seguir foram propostas para discussão do problema:
 
 ## 📝Decisões de implementação 
 
-### ```unordered_map:```  
-Estrutura que implementa uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar que o unordered_map, não mantém os elementos ordenados. 
+### unordered_map:  
+Estrutura que implementa uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar também que o unordered_map, não mantém os elementos ordenados. 
 
-Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear. Enquanto outras implementaçõe podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
+Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear, enquanto outras implementaçõe podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
 
 Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2".  O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
 o algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
 
+Custo Computacional: <br>
+- Melhor caso: $O$  $(1)$
+- Pior caso: $O$  $(n)$
 
-### ```Heap:```  
-Uma heap é uma estrutura a qual o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
+### Heap
+O heap é uma estrutura a qual o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
 
 <div style="text-align:center">
     <img src="img/minHeap.png" height="300" width="350">
@@ -125,7 +128,7 @@ A ordem das ocorrências seguem a estrutura de um heap.
 
 Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como a tabela hash e o método heap.
 Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos elementos e heap para manter a lista dos K elementos com maiores valores.
-Ao combinar as capacidades de contagem rápida de hash e a capacidade de manutenção de ordem e seleção eficiente de heap, o algoritmo consegue atingir um desempenho notável em termos de complexidade temporal para uma grande entrada de dados, já que para a busca dos K maiores itens não é necessário percorrer todo o heap procurando o menor valor, uma vez que ele estará sempre na primeira posição.
+Ao combinar as capacidades de contagem rápida de hash e a capacidade de ordem eficiente de heap, o algoritmo consegue atingir um desempenho notável em termos de complexidade temporal para uma grande entrada de dados,  já que para a busca dos K maiores itens não é necessário percorrer todo o heap procurando o menor valor, uma vez que ele estará sempre na primeira posição.
 
 
 ##  👾Compilação e Execução  
