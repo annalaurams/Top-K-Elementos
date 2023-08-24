@@ -2,9 +2,9 @@
 
 Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 
-## Sumário 📕 
+## 📕 Sumário 
 
-- [Objetivos](#Objetivos)
+- [Objetivo](#objetivo)
 - [Estrutura](#Estrutura)
 - [Diretrizes](#Diretrizes)
 - [Decisões de Implementação](#Decisões_de_Implementação)
@@ -15,12 +15,12 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 - [Compilação e execução](#Compilação-e-execução)
 - [Referências](#Referências)
 
-## Objetivo 🎯 
+## 🎯 Objetivo  
 
 O objetivo é desenvolver um algoritmo utilizando-se tabela hash e o método heap para resolver um problema clássico chamado "Top K itens". 
 Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma coleção de dados. Logo, utiliza-se o hash para contar a frequência de todos os itens, enquanto o heap se aplica na manutenção de uma lista dos K itens de maior valor. 
 
-## Estrutura 🗂️
+## 🗂️ Estrutura 
 
 - ```topk.hpp:``` Engloba a struct WordInfo, todas as funções utilizadas e seus parâmetros.
 - ```topk.cpp:``` Contém o desenvolvimento de todas as funções do código.    
@@ -30,7 +30,7 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 - ```text2.txt:``` Texto de entrada. 
 - ```stopwords.txt:``` Artigos e conjunções como (a, o, as, os, e, ou).
 
-## Diretrizes ☑️ 
+## ☑️  Diretrizes 
 
 As especificações a seguir foram propostas para discussão do problema:
 
@@ -61,7 +61,7 @@ As especificações a seguir foram propostas para discussão do problema:
 
 - Dentro do arquivo ```include.hpp``` possui a variável K que corresponde ao tamanho do heap, também pode ser alterada.
 
-## Decisões de implementação 📝
+## 📝 Decisões de implementação 
 
 ### ```unordered_map:```  
 Estrutura que implementa uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar que o unordered_map, não mantém os elementos ordenados. 
@@ -91,7 +91,7 @@ A função não retorna nada, apenas troca os valores, que nesse caso se refere 
 
 Custo: $O$  $k(log$ $k)$, onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
 
- ## Funções  💻
+ ## 💻 Funções  
 
 - ```addStopWord``` : Adiciona as stop words no glossário destinado para elas.
 - ```existentWord```: Verifica as stop words presentes no glossário e remove elas dele.
@@ -106,12 +106,12 @@ Custo: $O$  $k(log$ $k)$, onde n é o tamanho da coleção de dados e k o númer
 - ```heapify``` : Organiza a estrutra heap.
 
 
- ## Tempo de execução 🕜
+ ## 🕜 Tempo de execução 
 
 A contagem foi feita pelas ferramentas disponibilizadas pela bibioteca "time.h". <br/>
 O algoritmo foi executado 10 vezes e obteve-se como média geral o tempo de: 491,123 ms
 
-## Resultados ✅
+## ✅ Resultados 
 
 Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados.
 A ordem das ocorrências seguem a estrutura de um heap.
@@ -119,14 +119,14 @@ A ordem das ocorrências seguem a estrutura de um heap.
     <img src="img/output.png" height="400" width="400">
 </div>
 
-## Conclusão 📋
+##  📋 Conclusão
 
 Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como a tabela hash e o método heap.
 Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos elementos e heap para manter a lista dos K elementos com maiores valores.
 Ao combinar as capacidades de contagem rápida de hash e a capacidade de manutenção de ordem e seleção eficiente de heap, o algoritmo consegue atingir um desempenho notável em termos de complexidade temporal para uma grande entrada de dados, já que para a busca dos K maiores itens não é necessário percorrer todo o heap procurando o menor valor, uma vez que ele estará sempre na primeira posição.
 
 
-## Compilação e Execução  👾
+## 👾 Compilação e Execução  
 
 Esse pequeno exemplo possui um arquivo Makefile que realiza todo o procedimento de compilação e execução. <br/>Para tanto, temos as seguintes diretrizes de execução:
 
