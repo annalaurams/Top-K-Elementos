@@ -5,14 +5,14 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 ## 📕 Sumário 
 
 - [Objetivo](#objetivo)
-- [Estrutura](#Estrutura)
-- [Diretrizes](#Diretrizes)
-- [Decisões de Implementação](#Decisões_de_Implementação)
-- [Funções](#Funções)
-- [Resultados](#Resultados)
-- [Tempo de execução e Custo computacional](#Tempo_de_execução_e_Custo_computacional)
-- [Conclusão](#Conclusão)
-- [Compilação e execução](#Compilação-e-execução)
+- [Estrutura](#estrutura)
+- [Diretrizes](#diretrizes)
+- [Decisões de Implementação](#decisões_de_implementação)
+- [Funções](#funções)
+- [Resultados](#resultados)
+- [Tempo de execução e Custo computacional](#tempo_de_execução_e_custo_computacional)
+- [Conclusão](#conclusão)
+- [Compilação e execução](#compilação-e-execução)
 - [Referências](#referências)
 
 ## 🎯 Objetivo  
