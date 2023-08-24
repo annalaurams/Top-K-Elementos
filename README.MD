@@ -6,7 +6,7 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 
 
 - [Objetivo](#objetivo)
-- [Estrutura](#estrutura)
+- [Estrutura](#Estrutura)
 - [Diretrizes](#diretrizes)
 - [Decisões de Implementação](#decisões-de-implementação)
 - [Funções](#funções)
