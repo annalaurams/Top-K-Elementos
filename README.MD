@@ -19,7 +19,7 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 
 ## 🎯Objetivo  
 
-O objetivo é desenvolver um algoritmo utilizando-se tabela hash e o método heap para resolver um problema clássico chamado "Top K itens". 
+O objetivo é desenvolver um algoritmo utilizando-se tabela hash e o método heap para resolver um problema clássico chamado "Top K Itens". 
 Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma coleção de dados. Logo, utiliza-se o hash para contar a frequência de todos os itens, enquanto o heap se aplica na manutenção de uma lista dos K itens de maior valor. 
 
 ## 🗂️Estrutura 
@@ -48,7 +48,7 @@ As especificações a seguir foram propostas para discussão do problema:
   2. Caso contrário, o elemento deve ser ignorado, e é comparado o próximo dado até o fim do glossário.
 - No final, a heap conterá os K elementos com maiores valores (ocorrências) dentre os textos lidos. 
 
-### Exemplo de inserção e comparção:
+***Exemplo de inserção e comparção:***
 
 <div style="display: flex; justify-content: center;">
     <img src="img/exemploHeap.gif" width="300" height="300">
