@@ -4,9 +4,8 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 
 ## 📕Sumário 
 
-
 - [Objetivo](#objetivo)
-- [Estrutura](#Estrutura)
+- [Estrutura](#estrutura)
 - [Diretrizes](#diretrizes)
 - [Decisões de Implementação](#decisões-de-implementação)
 - [Funções](#funções)
@@ -16,13 +15,12 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 - [Compilação e Execução](#compilação-e-execução)
 - [Referências](#referências)
 
-
 ## 🎯Objetivo  
 
 O objetivo é desenvolver um algoritmo utilizando-se tabela hash e o método heap para resolver um problema clássico chamado "Top K Itens". 
 Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma coleção de dados. Logo, utiliza-se o hash para contar a frequência de todos os itens, enquanto o heap se aplica na manutenção de uma lista dos K itens de maior valor. 
 
-## 🗂️Estrutura 
+## 🗂️Estrutura  
 
 - ```topk.hpp:``` Apresenta a struct WordInfo.
 - ```topk.cpp:``` Contém o desenvolvimento de todas as funções do código.    
@@ -32,7 +30,7 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 - ```text2.txt:``` Texto de entrada. 
 - ```stopwords.txt:``` Artigos e conjunções como (a, o, as, os, e, ou).
 
-## ✔️Diretrizes 
+## ✔️Diretrizes  
 
 As especificações a seguir foram propostas para discussão do problema:
 
@@ -68,7 +66,7 @@ As especificações a seguir foram propostas para discussão do problema:
 
 - Dentro do arquivo ```include.hpp``` possui a variável K que corresponde ao tamanho do heap, também pode ser alterada.
 
-## 📝Decisões de implementação 
+## 📝Decisões de implementação  
 
 ### unordered_map:  
 Estrutura que implementa uma tabela de hash para associar chaves a valores, compondo-se nesse código por essa definição  ```unordered_map<string, WordInfo> glossary``` . As chaves são identificadores diretos para os dados. É importante lembrar também que o unordered_map, não mantém os elementos ordenados. 
@@ -132,7 +130,7 @@ A ordem das ocorrências seguem a estrutura de um heap.
     <img src="img/exemplo.png" height="400" width="350">
 </div>
 
-##  📋Conclusão
+##  📋Conclusão 
 
 Ao realizar o projeto "Top K itens", foi possível explorar técnicas de programação utilizando estruturas como a tabela hash e o método heap.
 Esse algoritmo é uma combinação eficiente do uso de hash para contar a frequência dos elementos e heap para manter a lista dos K elementos com maiores valores.
@@ -158,7 +156,7 @@ https://stackoverflow.com/questions/19411742/ <br>
 https://www.geeksforgeeks.org/heap-data-structure/ <br>
 https://www.geeksforgeeks.org/swap-in-cpp/
 
-### Contato
+### Contato 
 <div>
  <br><p align="justify"> Anna Laura Moura Santana</p>
  <a href="https://t.me/annalaurams">
