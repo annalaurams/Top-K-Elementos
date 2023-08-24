@@ -24,7 +24,7 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 
 ## 🗂️Estrutura 
 
-- ```topk.hpp:``` Engloba a struct WordInfo.
+- ```topk.hpp:``` Apresenta a struct WordInfo.
 - ```topk.cpp:``` Contém o desenvolvimento de todas as funções do código.    
 - ```main.cpp:``` Pertence a parte de leitura dos arquivos, chamada das funções usadas e o tempo de execução do programa.
 - ```include.hpp:``` Inclui biliotecas e arquivos a serem utilizados.
@@ -36,8 +36,10 @@ Neste tipo de problema é preciso encontrar os K itens mais valiosos de uma cole
 
 As especificações a seguir foram propostas para discussão do problema:
 
-- A partir de um texto de entrada, o algoritmo realiza a leitura dele e cria uma tabela de dispersão (hash) intitulada ```glossary```, para contar quantas vezes cada palavra aparece no texto. A chave do hash é a própria palavra.
-- O conteúdo do arquivo de stop words, pode ser alterado de acordo com a preferência do usuário, desde que cada palavra esteja em uma linha do arquivo e o nome dele não seja modificado. As stop words são salvas em outra tabela de dispersão. As stop words que forem econtradas no texto, são em seguida excluídas dele. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
+- A partir de um texto de entrada, o algoritmo realiza a leitura dele e cria uma tabela de dispersão (hash) intitulada ```glossary```, para contar quantas vezes cada palavra aparece no texto. A chave do hash é a própria palavra e o valor são as ocorrências, armazenadas em uma struct denominada WordInfo.
+- O conteúdo do arquivo de stop words, pode ser alterado de acordo com a preferência do usuário, desde que cada palavra esteja em uma linha do arquivo. 
+- As stop words são salvas em outra tabela de dispersão. 
+- As stop words que forem encontradas no texto, são em seguida excluídas dele. Pois, por serem artigos e conjunções facilmente seriam as mais frequentes do heap, no entanto foram desconsideradas.
 - O nome do arquivo ```stopwords.txt``` não deve ser alterado.
 - Em seguida, a partir de um valor K, é inserido em um vetor intitulado ```heap``` as primeiras K palavras guardadas no hash e depois são organizadas de forma que a menor ocorrência das K palavras inseridas, esteja na primeira posição do vetor.
 - Após isso para cada elemento restante no hash, é realizado comparações com o menor valor contido no heap, esses valores são as ocorrências:
@@ -45,6 +47,8 @@ As especificações a seguir foram propostas para discussão do problema:
   1. Se a ocorrência for maior do que o menor valor da heap, o menor valor é removido, o novo elemento é inserido e a estrutura novamente organizada.
   2. Caso contrário, o elemento deve ser ignorado, e é comparado o próximo dado até o fim do glossário.
 - No final, a heap conterá os K elementos com maiores valores (ocorrências) dentre os textos lidos. 
+
+### Exemplo de inserção e comparção:
 
 <div style="display: flex; justify-content: center;">
     <img src="img/exemploHeap.gif" width="300" height="300">
@@ -54,7 +58,8 @@ As especificações a seguir foram propostas para discussão do problema:
 - Cada parágrafo é separado por, pelo menos, uma linha em branco.
 - Considere como palavra uma sequência de letras delimitada por espaço em branco, ”coluna da esquerda”, ”coluna da direita” e símbolos de pontuação.
 
-- Todos os arquivos de entrada são lidos caracter por caracter.
+- Todos os arquivos de entrada são lidos caracter por caracter, e utiliza-se um switch case para pontuação e caracteres especiais, identificando o início e o fim das palavras.
+- As palavras que contém hífen, tiveram o hífen removido. Por exemplo "arco-íris" passa a ser "arcoíris".
 
 - O programa permite a leitura de vários arquivos de texto ao mesmo tempo, no entanto existem algumas regras:
   1. Para cada novo arquivo que se deseja ler, deve ser colocado dentro da pasta ```data```. 
@@ -66,14 +71,14 @@ As especificações a seguir foram propostas para discussão do problema:
 ## 📝Decisões de implementação 
 
 ### unordered_map:  
-Estrutura que implementa uma tabela de hash para associar chaves a valores. As chaves são identificadores diretos para os dados, e, nesse caso, essas chaves correspondem às palavras. Cada valor é armazenado na forma de uma struct denominada WordInfo, a qual armazena as ocorrências. É importante lembrar também que o unordered_map, não mantém os elementos ordenados. 
+Estrutura que implementa uma tabela de hash para associar chaves a valores, compondo-se nesse código por essa definição  ```unordered_map<string, WordInfo> glossary``` . As chaves são identificadores diretos para os dados. É importante lembrar também que o unordered_map, não mantém os elementos ordenados. 
 
-Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear, enquanto outras implementaçõe podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
+Em uma entrada de dados muito grande, pode ocorrer dados com a mesma chave. Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear, enquanto outras implementações podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
 
 Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2".  O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
 o algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
 
-Custo Computacional: <br>
+Custo Computacional unordered_map: <br>
 - Melhor caso: $O$  $(1)$
 - Pior caso: $O$  $(n)$
 
@@ -84,7 +89,9 @@ O heap é uma estrutura a qual o valor de cada nó é maior (ou menor) do que os
     <img src="img/minHeap.png" height="300" width="350">
 </div>
 
-O heap é organizado da seguinte forma:
+Na implementação do heap, é utilizado o heapify, um processo usado para transformar um conjunto de elementos em uma estrutura de heap, ou seja, ele rearranja os elementos para que a propriedade do heap seja mantida.
+
+Como se trata de uma minHeap, a estrutura é organizada da seguinte maneira:
 
 - Verifica se o nó à esquerda existe e se o valor de ocorrências desse nó é menor que o valor de ocorrências do nó atual. Se essa condição for verdadeira, atualiza maior para apontar para o nó à esquerda.
 - A função faz a mesma verificação para o nó da direita. 
@@ -94,7 +101,9 @@ Quando se encontra um nó filho com valor menor que o atual, a troca entre os el
 As trocas são feitas usando a função ```swap```, que aceita dois parâmetros que serão trocados. Os parâmetros podem ser de qualquer tipo de dados.
 A função não retorna nada, apenas troca os valores, que nesse caso se refere a troca de uma ocorrência menor pela outra maior.
 
-Custo: $O$  $k(log$ $k)$, onde n é o tamanho da coleção de dados e k o número de itens mais relevantes.
+Custo Computacional Heap: <br>
+$O$  $n(log$ $k)$, onde $n$ é o tamanho da coleção de dados e $k$ o número de itens mais relevantes.
+
 
  ## 💻Funções  
 
@@ -106,10 +115,9 @@ Custo: $O$  $k(log$ $k)$, onde n é o tamanho da coleção de dados e k o númer
 - ```cases``` : Realiza a contagem de ocorrência de cada palavra a medida que o texto é lido.
 - ```Accentuation``` : Procedimento que trata palavras acentuadas para aparecerem corretamente.
 - ```insertK``` : Insere os primeiros K elementos do hash no heap.
-- ```printHeap``` : Imprimi o heap de forma crescente.
+- ```printHeap``` : Imprimi o heap.
 - ```finaleHash``` : Realiza inserção do restante dos itens do hash, a partir da posição K, insere ou troca as maiores ocorrências do hash com o menor do heap.
-- ```heapify``` : Organiza a estrutra heap.
-
+- ```heapify``` : Organiza a estrutura heap.
 
  ## 🕜Tempo de execução 
 
@@ -121,7 +129,7 @@ O algoritmo foi executado 10 vezes e obteve-se como média geral o tempo de: 491
 Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados.
 A ordem das ocorrências seguem a estrutura de um heap.
 <div style="text-align:center">
-    <img src="img/output.png" height="400" width="400">
+    <img src="img/exemplo.png" height="400" width="350">
 </div>
 
 ##  📋Conclusão
@@ -144,7 +152,7 @@ Esse pequeno exemplo possui um arquivo Makefile que realiza todo o procedimento 
 
 ## Referências 
 
-https://learn.microsoft.com/pt-br/cpp/standard-library/unordered-map-class?view=msvc-170
+https://learn.microsoft.com/pt-br/cpp/standard-library/unordered-map-class?view=msvc-170 <br>
 https://stackoverflow.com/questions/21518704/ <br>
 https://stackoverflow.com/questions/19411742/ <br>
 https://www.geeksforgeeks.org/heap-data-structure/ <br>

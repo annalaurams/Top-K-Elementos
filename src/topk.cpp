@@ -259,3 +259,5 @@ void printHeap(vector<WordInfo> &heap){
           std::cout << info.word << ": " << info.occurrences << std::endl;
       }
 }
+
+

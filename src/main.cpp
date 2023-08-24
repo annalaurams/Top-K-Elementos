@@ -41,7 +41,7 @@ int main() {
     
             file.close();
         } 
-        else cout << "\nErro ao abrir o arquuivo.\n";
+        else cout << "\nErro ao abrir o arquivo.\n";
     }
 
     existentWord(glossary, glossaryStopWords);
@@ -59,6 +59,7 @@ int main() {
     double elapsedTimeMs = ((double)elapsedTime/CLOCKS_PER_SEC)*1000;
     cout << "\nTEMPO DE EXECUÇÃO: " << elapsedTimeMs << " ms " << endl;
     cout << endl;
+
 
     return 0;
 }
