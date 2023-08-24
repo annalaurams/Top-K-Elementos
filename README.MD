@@ -56,12 +56,12 @@ As especificações a seguir foram propostas para discussão do problema:
 ## 📝Decisões de implementação  
 
 ### unordered_map:  
-Estrutura que implementa uma tabela de hash para associar chaves a valores, compondo-se nesse código por essa definição  ```unordered_map<string, WordInfo> glossary``` . As chaves são identificadores diretos para os dados. É importante lembrar também que o unordered_map, não mantém os elementos ordenados. 
+Estrutura que implementa uma tabela hash para associar chaves a valores, compondo-se nesse código pela definição  ```unordered_map<string, WordInfo> glossary``` . As chaves são identificadores diretos para os dados. É importante lembrar também que o unordered_map, não mantém os elementos ordenados. 
 
 Em uma entrada de dados muito grande, pode ocorrer dados com a mesma chave. Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear, enquanto outras implementações podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
 
 Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2".  O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
-o algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
+O algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
 
 Custo Computacional unordered_map: <br>
 - Melhor caso: $O$  $(1)$
@@ -111,7 +111,7 @@ O algoritmo foi executado 10 vezes e obteve-se como média geral o tempo de: 491
 
 ## ✅Resultados 
 
-Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados.
+Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados.<br>
 A ordem das ocorrências seguem a estrutura de um heap.
 <div style="text-align:center">
     <img src="img/exemplo.png" height="400" width="350">
