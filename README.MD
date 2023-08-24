@@ -10,7 +10,7 @@ Atividade para a disciplina de Algoritmos e Estruturas de Dados II. <br/>
 - [Decisões de Implementação](#decisões_de_implementação)
 - [Funções](#funções)
 - [Resultados](#resultados)
-- [Tempo de execução e Custo computacional](#tempo_de_execução_e_custo_computacional)
+- [Tempo De Execução](#tempo_de_execução)
 - [Conclusão](#conclusão)
 - [Compilação e execução](#compilação-e-execução)
 - [Referências](#referências)
