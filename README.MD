@@ -60,15 +60,17 @@ Estrutura que implementa uma tabela hash para associar chaves a valores, compond
 
 Em uma entrada de dados muito grande, pode ocorrer dados com a mesma chave. Esse algoritmo trata colisões, pela implementação do libstdc++, por exemplo, utiliza uma técnica de encadeamento linear, enquanto outras implementações podem adotar diferentes estratégias. A biblioteca padrão C++ estabelece uma interface que compreende, entre outros recursos, o conceito de bucket_count, que possui uma complexidade de tempo constante. Tal característica indica a aplicação do encadeamento de colisões, onde itens com hashes semelhantes são agrupados em baldes. Este agrupamento facilita a contagem dos elementos por balde de mesmo valor hash, calculados por funções específicas. 
 
-Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2".  O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
+Há funções de hash do GCC C++ utilizadas, que usam implementação de "MurmurHashUnaligned2". O nome do algoritmo é derivado das operações que são realizadas em sequência para produzir o hash: multiplicação e rotação. Murmur faz parte funções de hash de uso geral, adequadas para uso não criptográfico e que garante não ter colisões para chaves de 4 bytes.
 O algoritmo MurmurHash gera um valor hash único para um bloco de dados fornecido. A função itera pelo bloco de dados em segmentos de 32 bits e realiza cálculos para cada segmento.
 
 Custo Computacional unordered_map: <br>
 - Melhor caso: $O$  $(1)$
 - Pior caso: $O$  $(n)$
 
-### Heap
-O heap é uma estrutura a qual o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, e cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
+### heap
+O heap é uma estrutura a qual o valor de cada nó é maior (ou menor) do que os valores de seus nós filhos, dependendo se é uma max-heap ou min-heap. Nesse caso, o algoritmo implementa uma min-heap, ou seja, cada nó tem um valor menor ou igual ao valor de seus filhos, mantendo o menor elemento na primeira posição. Os valores a serem armazenados nessa estrutura são as maiores ocorrências de palavras no texto.
+
+***Exemplo de uma min heap:***
 
 <div style="text-align:center">
     <img src="img/minHeap.png" height="300" width="350">
@@ -81,14 +83,21 @@ Como se trata de uma minHeap, a estrutura é organizada da seguinte maneira:
 - Verifica se o nó à esquerda existe e se o valor de ocorrências desse nó é menor que o valor de ocorrências do nó atual. Se essa condição for verdadeira, atualiza maior para apontar para o nó à esquerda.
 - A função faz a mesma verificação para o nó da direita. 
 
-Quando se encontra um nó filho com valor menor que o atual, a troca entre os elementos ocorre e a função é chamada novamente de modo recursivo.
+Quando se encontra um nó filho com valor menor que o atual, a troca entre os elementos ocorre e a função é chamada novamente de modo recursivo.<br>
+Para saber os filhos de um nó pai, foi utilizado a operação:<br>
+```nó esquerdo```  $=$ $2 * i + 1$<br>
+```nó direito```   $=$ $2 * i + 2$  
 
-As trocas são feitas usando a função ```swap```, que aceita dois parâmetros que serão trocados. Os parâmetros podem ser de qualquer tipo de dados.
+Inicialmente $i = 0$ <br>
+
+As trocas são feitas usando a função ```swap``` integrada ao C++. A função aceita dois parâmetros que serão trocados e podem ser de qualquer tipo de dados.
 A função não retorna nada, apenas troca os valores, que nesse caso se refere a troca de uma ocorrência menor pela outra maior.
 
 Custo Computacional Heap: <br>
 $O$  $n(log$ $k)$, onde $n$ é o tamanho da coleção de dados e $k$ o número de itens mais relevantes.
+<br>
 
+De modo geral, ambas as estruturas se mostram eficientes para resolução do problema. O ```unordered_map``` tem acesso eficiente de valores usando chaves e é rápido para armazenar informações pela relação chave-valor. Tendo a inserção e recuperação médias em tempo constante, e o ```heap``` possui recuperação eficiente do elemento mínimo/máximo, sendo muito útil em algoritmos de busca com alguma prioridade.
 
  ## 💻Funções  
 
@@ -98,7 +107,7 @@ $O$  $n(log$ $k)$, onde $n$ é o tamanho da coleção de dados e $k$ o número d
 - ```printGlossary``` : Imprimi o glossário de palavras de ambos os textos juntos.
 - ```fileReading``` : Realiza leitura caracter por caracter dos textos de entrada, utilizando um switch case, essa função processa, identifica as palavras e adiciona cada uma no glossário.
 - ```cases``` : Realiza a contagem de ocorrência de cada palavra a medida que o texto é lido.
-- ```Accentuation``` : Procedimento que trata palavras acentuadas para aparecerem corretamente.
+- ```accentuation``` : Procedimento que trata palavras acentuadas para aparecerem corretamente.
 - ```insertK``` : Insere os primeiros K elementos do hash no heap.
 - ```printHeap``` : Imprimi o heap.
 - ```finaleHash``` : Realiza inserção do restante dos itens do hash, a partir da posição K, insere ou troca as maiores ocorrências do hash com o menor do heap.
@@ -107,11 +116,12 @@ $O$  $n(log$ $k)$, onde $n$ é o tamanho da coleção de dados e $k$ o número d
  ## 🕜Tempo de execução 
 
 A contagem foi feita pelas ferramentas disponibilizadas pela bibioteca "time.h". <br/>
-O algoritmo foi executado 10 vezes e obteve-se como média geral o tempo de: 491,123 ms
+O algoritmo foi executado 10 vezes e obteve-se como média geral o tempo de: $491,123$ $ms$
 
 ## ✅Resultados 
 
 Ao final da execução é mostrado o heap com as palavras que contém maiores ocorrências da coleção de dados.<br>
+Neste exemplo foi utilizado os arquivos disponibilizados e o heap com tamanho 20. <br>
 A ordem das ocorrências seguem a estrutura de um heap.
 <div style="text-align:center">
     <img src="img/exemplo.png" height="400" width="350">
